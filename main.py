@@ -1,5 +1,7 @@
 # bot.py
 import os
+import time
+import datetime
 
 import discord
 from discord.ext import commands
@@ -77,6 +79,46 @@ async def unmute(ctx):
     await ctx.send("Quiet VC is not muted anymore!")
     for member in vcChat.members:
             await member.move_to(vcChat)
+
+# time command
+@bot.command(brief="Get time, ex) 'Meet me at t:yy/mm/dd/hr/min/pm!")
+async def t(ctx, *message):
+    if not message:
+        currTime = "<t:" + str(int(time.time())) + ":f>"
+        await ctx.send("Current time is " + currTime)
+        return
+    
+    mss = ""
+    for word in message:
+        # if start with t:, turn into unix code
+        if word.startswith("t:"):
+            try:
+                extra = ""
+                yy,mm,dd,hr,min,day = word[2:].split("/")
+
+                if len(day) > 2:
+                    extra = day[2:]
+
+                if hr == "12" and day.lower().startswith("am"):
+                    hr = "0"
+                elif hr != "12" and day.lower().startswith("pm"):
+                    hr = int(hr) + 12
+
+                dt = datetime.datetime( 2000+int(yy), int(mm), int(dd), int(hr), int(min))
+                unix = int(time.mktime(dt.timetuple()))
+                mss = mss + " <t:" + str(unix) + ":f>" + extra
+            except Exception as e:
+                print(e)
+                mss = mss + " " + word
+        else:
+            mss = mss + " " + word
+    
+    #resend the message after time is edit
+    await ctx.send(mss)
+            
+    
+    
+    
 
 # chat command
 async def send_message(message, userMessage):

@@ -24,7 +24,8 @@ def get_response(userInput) -> str:
             "Yes",
             "No :3c", 
             ":thinking:", 
-            "Idk what you saying but you doing great!"
+            "Idk what you saying but you doing great!",
+            "You ok buddy?"
             ]
         
         num = random.randint(0, len(res)-1)
