@@ -8,6 +8,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 from responses import get_response
+from character import get_character
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -116,8 +117,11 @@ async def t(ctx, *message):
     #resend the message after time is edit
     await ctx.send(mss)
             
-    
-    
+
+# random character generator
+@bot.command(brief="randomly generates a character")
+async def character(ctx):
+    await ctx.reply(get_character())    
     
 
 # chat command
