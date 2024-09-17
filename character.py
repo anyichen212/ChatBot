@@ -37,7 +37,7 @@ def get_character() -> str:
         > **Body Size** : {bodySize} 
         > **Moles** : {moleNum} 
         > 
-        > **Family** : {familyHealth}  
+        > **Family** : {familyHealth} 
         > **Born Into(Family Wealth)** : {familyFinance} 
         > **Personal Wealth** : {personalFinance} 
         > 
